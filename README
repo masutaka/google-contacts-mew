@@ -1,10 +1,16 @@
-google-contacts-mew.el は Gmail のアドレス帳を Mew のアドレス帳にコピー
+*はじめに*
+
+google-contacts-mew.el は「Gmail の連絡先」を Mew のアドレス帳にコピー
 するソフトウェアです。
 
 *** Mew のアドレス帳が上書きされるので、使用には十分注意してください。***
 
-設置方法:
-1. google-contacts.el が必要です。
+
+*設置方法*
+
+1. google-contacts.el を以下のサイトから取得し、load-path の通ったディ
+   レクトリに置いてください。
+
    http://folk.uio.no/oyvinst/tools/emacs/#gmail-contacts 
 
 2. ~/.mew.el に以下を設定して下さい。
@@ -14,17 +20,41 @@ google-contacts-mew.el は Gmail のアドレス帳を Mew のアドレス帳に
 3. M-x google-contacts-mew-renew-addrbook すると、Mew のアドレス帳が
    書き換えられます。
 
-補足:
 BBDB をインストールしていないと、(require 'google-contacts-mew) 時に
 "Cannot open load file: bbdb" というエラーメッセージが出ます。ただし、
 google-contacts-mew.el 自身は BBDB を要求しないので、必要なければ
 google-contacts.el の (require 'bbdb) をコメントアウトして構いません。
 
-カスタマイズ:
+
+*カスタマイズ*
+
 以下を設定すると、Mew の Summary-mode で Z した時に自動で Mew のアドレ
 ス帳が書き換えられます。
 
  (setq google-contacts-mew-renew-addrbook-when-status-update t)
 
-参考情報:
+以下を設定すると、Mew のアドレス帳を上書きして良いかの問い合わせを行い
+ません。
+
+ (setq google-contacts-mew-ask nil)
+
+
+*使用する「Gmail の連絡先」のフィールド*
+
+Mew Addrbook の「個人情報」の定義は以下のとおり。
+<shortname> <address1>[, <address2>, <address3>,...] <nickname> <fullname>
+
+「Gmail の連絡先」とは以下のように対応します。
+--------------+----------------------------
+ Mew Addrbook | Gmail の連絡先
+--------------+----------------------------
+ shortname    | ニックネーム
+ address1~n   | メールアドレス
+ nickname     | 名前
+ fullname     | 名前
+--------------+----------------------------
+
+
+*参考情報*
+
 http://sheephead.homelinux.org/2011/06/14/6717/
