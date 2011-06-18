@@ -14,6 +14,12 @@ google-contacts-mew.el は Gmail のアドレス帳を Mew のアドレス帳に
 3. M-x google-contacts-mew-renew-addrbook すると、Mew のアドレス帳が
    書き換えられます。
 
+補足:
+BBDB をインストールしていないと、(require 'google-contacts-mew) 時に
+"Cannot open load file: bbdb" というエラーメッセージが出ます。ただし、
+google-contacts-mew.el 自身は BBDB を要求しないので、必要なければ
+google-contacts.el の (require 'bbdb) をコメントアウトして構いません。
+
 カスタマイズ:
 以下を設定すると、Mew の Summary-mode で Z した時に自動で Mew のアドレ
 ス帳が書き換えられます。
