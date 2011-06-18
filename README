@@ -1,0 +1,21 @@
+google-contacts-mew.el は Gmail のアドレス帳を Mew のアドレス帳にコピー
+するソフトウェアです。
+
+*** Mew のアドレス帳が上書きされるので、使用には十分注意してください。***
+
+設置方法:
+1. google-contacts.el が必要です。
+   http://folk.uio.no/oyvinst/tools/emacs/#gmail-contacts 
+
+2. ~/.mew.el に以下を設定して下さい。
+
+   (require 'google-contacts-mew)
+
+3. M-x google-contacts-mew-renew-addrbook すると、Mew のアドレス帳が
+   書き換えられます。
+
+カスタマイズ:
+以下を設定すると、Mew の Summary-mode で Z した時に自動で Mew のアドレ
+ス帳が書き換えられます。
+
+ (setq google-contacts-mew-renew-addrbook-when-status-update t)
