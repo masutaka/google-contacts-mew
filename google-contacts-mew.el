@@ -4,39 +4,24 @@
 ;; Author: Takashi Masuda <masutaka@nifty.com>
 ;; License: Public domain, use at own risk, no warranties of any kind.
 
-;; Version 1.1
-;; - Support for overwriting fetched contacts with Mew Addrbook.
-
-;; Basic usage:
-;; - Set variables `google-contacts-email' and `google-contacts-passwd'.
-;; - Call function `google-contacts-mew-renew-addrbook'.
-;;   It returns a simple Lisp structure which should contain all your contacts.
-
 ;; Install:
 ;; Put this file into load-path'ed directory, and byte compile it if
 ;; desired. And put the following expression into your ~/.mew.el.
 ;;
 ;; (require 'google-contacts-mew)
+;; (setq google-contacts-email "Your GMail address")
 ;; and
 ;; M-x google-contacts-mew-renew-addrbook
 ;;
-;; If you renew your Mew Addrbook when do \\[mew-status-update].
+;; If you want to renew your Mew Addrbook when you do \\[mew-status-update].
 ;;
-;; (setq google-contacts-mew-renew-addrbook-when-status-update t)
+;; (setq google-contacts-mew-renew-when-status-update t)
 
-;; Be careful with the `google-contacts-mew-update' function. It will
-;; replace all contacts you have in your Mew address book for which there
-;; exists a Google contact, with only data from the Google contact. This is
-;; because I mostly edit contacts in GMail and just export to Mew when
-;; necessary, using this function. Also bear in mind that this is *alpha* code,
-;; tailored to my own needs. It was written using Emacs 23, your milage may vary
-;; if you're using a different Emacs flavour or version.
-;;
 ;;** BACKUP YOUR Mew Addrbook BEFORE TESTING THIS FUNCTION **
 
 (require 'google-contacts)
 
-(defvar google-contacts-mew-renew-addrbook-when-status-update nil
+(defvar google-contacts-mew-renew-when-status-update nil
   "*If *non-nil*, `mew-addrbook-file' will rewrite when do \\[mew-status-update]")
 
 (defvar google-contacts-mew-ask t
@@ -78,7 +63,7 @@ Mew Addrbook の「個人情報」の定義は以下のとおり。
 
 (defadvice mew-addrbook-setup
   (before google-contacts-mew activate)
-  (if google-contacts-mew-renew-addrbook-when-status-update
+  (if google-contacts-mew-renew-when-status-update
       (google-contacts-mew-renew-addrbook)))
 
 (provide 'google-contacts-mew)

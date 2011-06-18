@@ -35,7 +35,7 @@
 ;;   string.
 ;;
 
-(require 'bbdb)
+;;(require 'bbdb)
 (require 'auth-source)
 (require 'json)
 (require 'url)
@@ -59,7 +59,8 @@
     (if google-contacts-passwd-use-auth-source
         (setq email (auth-source-user-or-password "login" "gmail.com" nil)
               passwd (auth-source-user-or-password "password" "gmail.com" nil))
-      (setq email google-contacts-email passwd google-contacts-passwd))
+      (setq email (or google-contacts-email (read-string "GMail address: "))
+	    passwd (or google-contacts-passwd (read-passwd "GMail password: "))))
     (if (and email passwd)
         (cons email passwd)
       (error "Email/password not set or not found in auth source for host 'gmail.com'."))))
