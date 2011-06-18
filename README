@@ -19,3 +19,6 @@ google-contacts-mew.el は Gmail のアドレス帳を Mew のアドレス帳に
 ス帳が書き換えられます。
 
  (setq google-contacts-mew-renew-addrbook-when-status-update t)
+
+参考情報:
+http://sheephead.homelinux.org/2011/06/14/6717/
