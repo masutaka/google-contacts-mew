@@ -8,8 +8,9 @@ google-contacts-mew.el は「Gmail の連絡先」を Mew のアドレス帳に�
 
 *設置方法*
 
-1. google-contacts.el を以下のサイトから取得し、load-path の通ったディ
-   レクトリに置いてください。
+1. google-contacts.el と google-contacts-mew.el を load-path の通ったディ
+   レクトリに置いてください。google-contacts.el は以下のサイトから取得
+   できます。
 
    http://folk.uio.no/oyvinst/tools/emacs/#gmail-contacts 
 
