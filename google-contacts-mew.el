@@ -37,7 +37,10 @@
 (require 'google-contacts)
 
 (defvar google-contacts-mew-renew-addrbook-when-status-update nil
-  "*If non-nil, `mew-addrbook-file' will rewrite when do \\[mew-status-update]")
+  "*If *non-nil*, `mew-addrbook-file' will rewrite when do \\[mew-status-update]")
+
+(defvar google-contacts-mew-ask t
+  "*If *non-nil*, ask whether or not you really renew your Mew addrbook.")
 
 (defun google-contacts-mew-renew-addrbook ()
   "Gmail のアドレス帳を `mew-addrbook-file' に上書きします。
@@ -56,19 +59,22 @@ Mew Addrbook の「個人情報」の定義は以下のとおり。
 --------------+----------------------------
 "
   (interactive)
-  (with-temp-buffer
-    (dolist (contact (google-contacts-retrieve))
-      (let ((shortname (cdr (assoc 'aka contact)))
-	    (emails (cadr (assoc 'emails contact)))
-	    (name (cdr (assoc 'name contact))))
-	(when emails
-	  (insert (if shortname shortname "*") "\t"
-		  (mapconcat 'identity emails ", "))
-	  (if name (insert "\t" name "\t" name))
-	  (insert "\n"))))
-    (write-region
-     (point-min) (point-max)
-     (expand-file-name mew-addrbook-file mew-conf-path))))
+  (if (and google-contacts-mew-ask
+	   (not (y-or-n-p "Renew Your Mew addrbook? ")))
+      (message "Your Mew addrbook is not renewed.")
+    (with-temp-buffer
+      (dolist (contact (google-contacts-retrieve))
+	(let ((shortname (cdr (assoc 'aka contact)))
+	      (emails (cadr (assoc 'emails contact)))
+	      (name (cdr (assoc 'name contact))))
+	  (when emails
+	    (insert (if shortname shortname "*") "\t"
+		    (mapconcat 'identity emails ", "))
+	    (if name (insert "\t" name "\t" name))
+	    (insert "\n"))))
+      (write-region
+       (point-min) (point-max)
+       (expand-file-name mew-addrbook-file mew-conf-path)))))
 
 (defadvice mew-addrbook-setup
   (before google-contacts-mew activate)
