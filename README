@@ -22,8 +22,8 @@ google-contacts-mew.el は「Gmail の連絡先」を Mew のアドレス帳に�
 
 *カスタマイズ*
 
-以下を設定すると、Mew の Summary-mode で Z した時に自動で Mew のアドレ
-ス帳が書き換えられます。
+以下を設定すると、Mew 起動時と、Summary-mode で Z した時に自動で Mew の
+アドレス帳が書き換えられます。
 
  (setq google-contacts-mew-renew-when-status-update t)
 
