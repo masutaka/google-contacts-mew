@@ -48,20 +48,23 @@ Mew Addrbook の「個人情報」の定義は以下のとおり。
 	   (not (y-or-n-p "Renew Your Mew addrbook? ")))
       (message "Your Mew addrbook is not renewed.")
     (condition-case err
-	(with-temp-buffer
-	  (dolist (contact (google-contacts-retrieve))
-	    (let ((shortname (cdr (assoc 'aka contact)))
-		  (emails (cadr (assoc 'emails contact)))
-		  (name (cdr (assoc 'name contact))))
-	      (when emails
-		(insert (if shortname shortname "*") "\t"
-			(mapconcat 'identity emails ", "))
-		(if name (insert "\t" name "\t" name))
-		(insert "\n"))))
-	  (if (< (point-min) (point-max))
-	      (write-region
-	       (point-min) (point-max)
-	       (expand-file-name mew-addrbook-file mew-conf-path))))
+	(let ((google-contacts-email
+	       (or google-contacts-email (read-string "GMail address: ")))
+	      (google-contacts-passwd
+	       (or google-contacts-passwd (read-passwd "GMail password: "))))
+	  (with-temp-buffer
+	    (dolist (contact (google-contacts-retrieve))
+	      (let ((shortname (cdr (assoc 'aka contact)))
+		    (emails (cadr (assoc 'emails contact)))
+		    (name (cdr (assoc 'name contact))))
+		(when emails
+		  (insert (if shortname shortname "*") "\t"
+			  (mapconcat 'identity emails ", "))
+		  (if name (insert "\t" name "\t" name))
+		  (insert "\n"))))
+	    (write-region
+	     (point-min) (point-max)
+	     (expand-file-name mew-addrbook-file mew-conf-path))))
       (quit nil))))
 
 (defadvice mew-addrbook-setup
