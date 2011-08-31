@@ -63,7 +63,7 @@ Mew Addrbook の「個人情報」の定義は以下のとおり。
 		  (when emails
 		    (insert (if shortname shortname "*") "\t"
 			    (mapconcat 'identity emails ", "))
-		    (if name (insert "\t" name "\t" name))
+		    (if name (insert "\t\"" name "\"\t\"" name "\""))
 		    (insert "\n"))))
 	      (write-region
 	       (point-min) (point-max)
